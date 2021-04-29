@@ -29,6 +29,15 @@ homedo generate
 homedo g
 ```
 
+## 加速三件套
++ [homedo-vue3-boilerplate](https://github.com/rmlzy/homedo-vue3-boilerplate): 一个模板仓库
++ [homedo-cli](https://github.com/rmlzy/homedo-cli): 一个生成代码的终端命令
++ [homedo-utils](https://github.com/rmlzy/homedo-utils): 河姆渡常用的公共方法
+
+如果对你有帮助, 欢迎点一下 Star
+
+如果有问题, 可以通过 rmlzy@outlook.com 找到我
+
 ## LICENSE
 MIT
 
