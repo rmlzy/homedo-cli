@@ -1,10 +1,11 @@
 {
   "name": "homedo-cli",
   "description": "A command-line interface tool built for homedo.com",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "rmlzy <rmlzy@outlook.com> (https://poppython.com)",
-  "main": "sao.js",
-  "bin": "cli.js",
+  "bin": {
+    "homedo": "cli.js"
+  },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "test": "ava",
