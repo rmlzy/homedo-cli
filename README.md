@@ -10,6 +10,7 @@ sudo npm i -g homedo-cli
 ```
 
 ## 命令清单
+可以通过 `homedo --help` 查看命令清单
 
 1. 初始化仓库, 目前仅支持 vue3, 模板来自 [homedo-vue3-boilerplate](https://github.com/rmlzy/homedo-vue3-boilerplate)
 
