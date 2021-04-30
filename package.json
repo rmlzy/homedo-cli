@@ -1,7 +1,7 @@
 {
   "name": "homedo-cli",
   "description": "A command-line interface tool built for homedo.com",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "rmlzy <rmlzy@outlook.com> (https://poppython.com)",
   "bin": {
     "homedo": "cli.js"
@@ -15,10 +15,14 @@
   "dependencies": {
     "cac": "^6.6.1",
     "chalk": "^4.1.1",
+    "ejs": "^3.1.6",
     "fixpack": "^3.0.6",
+    "fs-extra": "^9.1.0",
     "inquirer": "^8.0.0",
+    "nunjucks": "^3.2.3",
     "shelljs": "^0.8.4",
-    "update-notifier": "^5.0.0"
+    "update-notifier": "^5.0.0",
+    "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^3.13.0",
