@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const shell = require("shelljs");
 const ejs = require("ejs");
 const upperCase = require("uppercamelcase");
-const { sleep, logger, readTemplate, isEmptyDir } = require("./util");
+const { logger, readTemplate, isEmptyDir } = require("./util");
 
 async function doGenerateDetail() {
   const {
@@ -65,7 +65,6 @@ async function doGenerateDetail() {
   }
 
   logger.success("开始生成代码...");
-  await sleep(1000);
   try {
     const pageHeaderActionNames = pageHeaderActionName.split(" ").map((item) => item.trim());
     const upperCaseName = upperCase(name);
@@ -95,7 +94,6 @@ async function doGenerateDetail() {
     }
     logger.success("代码生成成功!");
 
-    await sleep(1000);
     logger.success("开始格式化代码...");
     const formatCmd = `./node_modules/.bin/prettier ${targetPath} --write`;
     const formatRes = shell.exec(formatCmd, { silent: true });

@@ -1,0 +1,26 @@
+import { message } from "ant-design-vue";
+import { AxiosResponse } from "axios";
+import request from "@/utils/request";
+import { IResponse } from "@/core/interface";
+import { IResult } from "./<%= name %>.interface";
+
+export const fetchDemo = async (): Promise<IResult> => {
+  const result: IResult = {
+    hello: "",
+  };
+  try {
+    const r: AxiosResponse<IResponse<IResult>> = await request({
+      method: "GET",
+      url: "/api/mock-api",
+    });
+    const res = r.data;
+    if (res.respCode !== "0000") {
+      message.error(res.respDesc);
+      return result;
+    }
+    result.hello = res.data.hello;
+  } catch (e) {
+    message.error(e.message);
+  }
+  return result;
+};
