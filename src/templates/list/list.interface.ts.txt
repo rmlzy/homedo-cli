@@ -15,16 +15,8 @@ export interface IQuery {
 
 export interface ITableRow {
   id?: number;
-  table1?: string;
-  table2?: string;
-  table3?: string;
-  table4?: string;
-  table5?: string;
-  table6?: string;
-  table7?: string;
-  table8?: string;
-  table9?: string;
-  table10?: string;
+  <% for (var i = 1; i <= columnCount; i++) { %> table<%= i %>?: string;
+  <% } %>
 }
 
 export interface IResult {

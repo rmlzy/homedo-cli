@@ -15,8 +15,7 @@
 <% if (needAction) { %>
 <table-action>
   <template #left>
-    <% actionNames.forEach(function (name) { %>
-    <a-button><%= name %></a-button>
+    <% actionNames.forEach(function (name) { %> <a-button><%= name %></a-button>
     <% }) %>
   </template>
 </table-action>
@@ -31,7 +30,7 @@
   :scroll="{ x: <%= scrollX %> }"
   <% } %>
   <% if (needSelection) { %>
-  :row-selection="{selectedRowKeys: selectedKeys,onChange: onSelectionChange,fixed: 'left'}"
+  :row-selection="{ selectedRowKeys: selectedKeys, onChange: onSelectionChange, fixed: 'left' }"
   <% } %>
 >
   <template #index="{ index }">{{ index + 1 }}</template>
