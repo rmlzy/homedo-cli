@@ -36,7 +36,6 @@ module.exports.logger = {
 module.exports.readTemplate = async function (name) {
   const rootPath = await getInstalledPath("homedo-cli", {});
   const tmplPath = path.resolve(rootPath, `src/templates/${name}`);
-  console.log(tmplPath);
   return fs.readFile(tmplPath, "utf8");
 };
 
