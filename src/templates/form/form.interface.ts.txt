@@ -1,0 +1,9 @@
+export interface IFormData {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>?: string; <% } %>
+}
+
+<% if (needEdit) { %>
+export interface IDetail {
+  id?: string;
+}
+<% } %>

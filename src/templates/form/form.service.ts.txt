@@ -1,0 +1,71 @@
+import { message } from "ant-design-vue";
+import { AxiosResponse } from "axios";
+import request from "@/utils/request";
+import { IResponse } from "@/core/interface";
+<% if (needEdit) { %> import { IFormData, IDetail } from "./<%= name %>.interface";
+<% } else { %> import { IFormData } from "./<%= name %>.interface";
+<% } %>
+
+<% if (needEdit) { %>
+export const fetchDetail = async (id: string): Promise<IDetail> => {
+  const result = {};
+  try {
+    const r: AxiosResponse<IResponse<IDetail>> = await request({
+      method: "GET",
+      url: `/api/mock-api/${id}`,
+    });
+    const res = r.data;
+    if (res.respCode !== "0000") {
+      message.error(res.respDesc);
+      return result;
+    }
+    return res.data;
+  } catch (e) {
+    message.error(e.message);
+  }
+  return result;
+};
+
+export const doEdit = async (id: string, formData: IFormData): Promise<any> => {
+  let success = false;
+  try {
+    const r: AxiosResponse<IResponse<any>> = await request({
+      method: "PUT",
+      url: `/api/mock-api/${id}`,
+      data: formData,
+    });
+    const res = r.data;
+    if (res.respCode !== "0000") {
+      message.error(res.respDesc);
+      return success;
+    }
+    success = true;
+  } catch (e) {
+    success = false;
+    message.error(e.message);
+  }
+  return success;
+};
+
+<% } %>
+
+export const doCreate = async (formData: IFormData): Promise<boolean> => {
+  let success = false;
+  try {
+    const r: AxiosResponse<IResponse<any>> = await request({
+      method: "POST",
+      url: "/api/mock-api",
+      data: formData,
+    });
+    const res = r.data;
+    if (res.respCode !== "0000") {
+      message.error(res.respDesc);
+      return success;
+    }
+    success = true;
+  } catch (e) {
+    success = false;
+    message.error(e.message);
+  }
+  return success;
+};

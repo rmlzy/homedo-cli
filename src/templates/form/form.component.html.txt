@@ -1,0 +1,35 @@
+<hmd-page>
+  <template #header>
+    <a-page-header title="<%= pageHeaderTitle %>">
+      <div><%= pageHeaderDesc %></div>
+    </a-page-header>
+  </template>
+
+  <template #body>
+    <a-form ref="formRef" layout="vertical" :model="formData" :rules="formRules">
+      <a-card title="基本信息">
+        <a-row :gutter="15">
+          <% for (var i = 1; i <= fieldCount; i++) { %>
+          <a-col :span="8">
+            <a-form-item label="字段<%= i %>" name="field<%= i %>">
+              <a-input v-model:value="formData.field<%= i %>" placeholder="请输入"></a-input>
+            </a-form-item>
+          </a-col>
+          <% } %>
+        </a-row>
+        <% if (!needFooter) { %>
+        <a-button type="primary" @click="submit">保存</a-button>
+        <% if (needCreateContinue) { %> <a-button v-if="!isEdit" @click="createThenContinue">保存并新建</a-button> <% } %>
+        <a-button @click="reset">取消</a-button>
+        <% } %>
+      </a-card>
+    </a-form>
+  </template>
+  <% if (needFooter) { %>
+  <template #footer>
+    <a-button type="primary" @click="submit">保存</a-button>
+    <% if (needCreateContinue) { %> <a-button v-if="!isEdit" @click="createThenContinue">保存并新建</a-button> <% } %>
+    <a-button @click="reset">取消</a-button>
+  </template>
+  <% } %>
+</hmd-page>

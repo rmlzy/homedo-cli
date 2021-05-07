@@ -1,0 +1,75 @@
+import { computed, defineComponent, onMounted, reactive, ref, toRaw, UnwrapRef } from "vue";
+import { useRoute } from "vue-router";
+import { IFormData } from "./<%= name %>.interface";
+import { defaultFormData, formRules } from "./<%= name %>.constant";
+<% if (needEdit) { %> import { fetchDetail, doCreate, doEdit } from "./<%= name %>.service";
+<% } else { %> import { doCreate } from "./<%= name %>.service";
+<% } %>
+
+export default defineComponent({
+  name: "<%= upperCaseName %>",
+  setup() {
+    <% if (needEdit) { %>
+    const route = useRoute();
+    const id = route.params.id as string;
+    <% } %>
+    const formRef = ref();
+    const formData: UnwrapRef<IFormData> = reactive(defaultFormData);
+    const submitting = ref(false);
+    <% if (needEdit) { %> const isEdit = computed(() => !!id); <% } %>
+    const reset = () => {
+      formRef.value.resetFields();
+    };
+    <% if (needCreateContinue) { %>
+    const createThenContinue = async () => {
+      submitting.value = true;
+      try {
+        await formRef.value.validate();
+        await doCreate(toRaw(formData));
+        await reset();
+      } catch (e) {
+        // pass
+      } finally {
+        submitting.value = false;
+      }
+    };
+    <% } %>
+    const submit = async () => {
+      submitting.value = true;
+      try {
+        await formRef.value.validate();
+        <% if (needEdit) { %>
+        if (isEdit) {
+          await doEdit(id, toRaw(formData));
+        } else {
+          await doCreate(toRaw(formData));
+        }
+        <% } else { %>
+          await doCreate(toRaw(formData));
+        <% } %>
+      } catch (e) {
+        // pass
+      } finally {
+        submitting.value = false;
+      }
+    };
+    <% if (needEdit) { %>
+    onMounted(async () => {
+      if (isEdit) {
+        const detail = await fetchDetail(id);
+        // detail data to form data
+      }
+    });
+    <% } %>
+    return {
+      submitting,
+      <% if (needEdit) { %> isEdit, <% } %>
+      formRef,
+      formData,
+      formRules,
+      submit,
+      reset,
+      <% if (needCreateContinue) { %> createThenContinue, <% } %>
+    };
+  },
+});
