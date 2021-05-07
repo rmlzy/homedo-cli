@@ -9,10 +9,10 @@ const doGenerateForm = require("./doGenerateForm");
 const doGenerateDetail = require("./doGenerateDetail");
 
 async function doGenerate() {
-  const viewsPath = path.resolve("src/views");
-  const viewsExisted = await fs.pathExists(viewsPath);
-  if (!viewsExisted) {
-    logger.info(`抱歉，我没有检测到 ${viewsPath}`);
+  const srcPath = path.resolve("src");
+  const srcExisted = await fs.pathExists(srcPath);
+  if (!srcExisted) {
+    logger.info(`抱歉，没有检测到 ${srcPath}`);
     shell.exit(1);
   }
 

@@ -4,11 +4,11 @@ const inquirer = require("inquirer");
 const shell = require("shelljs");
 const ejs = require("ejs");
 const upperCase = require("uppercamelcase");
-const { logger, readTemplate, isEmptyDir } = require("./util");
+const { logger, readTemplate, isEmptyDir, getNameFromPath } = require("./util");
 
 async function doGenerateForm() {
   const {
-    name,
+    outputPath,
     pageHeaderTitle,
     pageHeaderDesc,
     needCreateContinue,
@@ -17,9 +17,9 @@ async function doGenerateForm() {
     fieldCount,
   } = await inquirer.prompt([
     {
-      name: "name",
+      name: "outputPath",
       type: "input",
-      message: "请输入文件名称，比如 my-list",
+      message: "请输入文件路径，例如 ./views/demo/my-form",
       validate: (value) => {
         return !!value;
       },
@@ -61,7 +61,8 @@ async function doGenerateForm() {
       default: 9,
     },
   ]);
-  const targetPath = path.resolve(`src/views/${name}`);
+  const name = getNameFromPath(outputPath);
+  const targetPath = path.resolve("src", outputPath);
   await fs.ensureDir(targetPath);
   if (!isEmptyDir(targetPath)) {
     logger.fail(`src/views/${name} 非空`);

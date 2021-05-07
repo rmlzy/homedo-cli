@@ -5,6 +5,10 @@ const shell = require("shelljs");
 
 const CLI_CONFIG = ".homedo-cli.json";
 
+module.exports.getNameFromPath = function getNameFromPath(filePath) {
+  return (filePath || "").split("/").pop();
+};
+
 module.exports.sleep = function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
