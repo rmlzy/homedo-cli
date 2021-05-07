@@ -1,0 +1,32 @@
+import { ColumnProps } from 'ant-design-vue/lib/table/interface';
+import { IQuery, IState } from './<%= name %>.interface';
+
+const DEFAULT_PAGE_SIZE = 20;
+
+export const columns: ColumnProps[] = [
+  <% for (var i = 1; i <= queryCount; i++) { %>
+  {
+    title: '表格列<%= i %>',
+    dataIndex: 'table<%= i %>',
+    key: 'table<%= i %>'
+  },
+  <% } %>
+];
+
+export const defaultQueryForm: IQuery = {
+  <% for (var i = 1; i <= queryCount; i++) { %>
+  query<%= i %>: undefined,
+  <% } %>
+};
+
+export const defaultState: IState = {
+  loading: false,
+  selectedKeys: [],
+  columns: columns,
+  records: [],
+  pagination: {
+    current: 1,
+    size: DEFAULT_PAGE_SIZE,
+    total: 0
+  }
+};
