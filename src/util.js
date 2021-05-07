@@ -1,3 +1,4 @@
+const { getInstalledPath } = require("get-installed-path");
 const path = require("path");
 const fs = require("fs-extra");
 const chalk = require("chalk");
@@ -32,8 +33,10 @@ module.exports.logger = {
   },
 };
 
-module.exports.readTemplate = function (name) {
-  const tmplPath = path.resolve(`src/templates/${name}`);
+module.exports.readTemplate = async function (name) {
+  const rootPath = await getInstalledPath("homedo-cli", {});
+  const tmplPath = path.resolve(rootPath, `src/templates/${name}`);
+  console.log(tmplPath);
   return fs.readFile(tmplPath, "utf8");
 };
 
