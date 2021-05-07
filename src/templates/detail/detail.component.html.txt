@@ -1,0 +1,25 @@
+<hmd-page>
+  <% if (needPageHeader) { %>
+  <template #header>
+    <a-page-header title="<%= pageHeaderTitle %>">
+      <% if (pageHeaderAction) { %>
+      <template #extra>
+        <% pageHeaderActionNames.forEach(function (name) { %> <a-button><%= name %></a-button>
+        <% }) %>
+      </template>
+      <% } %>
+      <a-descriptions size="small" :column="3">
+        <a-descriptions-item label="示例字段">{{ detail.id }}</a-descriptions-item>
+        <a-descriptions-item label="示例字段">{{ detail.id }}</a-descriptions-item>
+        <a-descriptions-item label="示例字段">{{ detail.id }}</a-descriptions-item>
+      </a-descriptions>
+    </a-page-header>
+  </template>
+  <% } %>
+
+  <a-descriptions>
+    <% for (var i = 1; i <= fieldCount; i++) { %>
+    <a-descriptions-item label="示例字段<%= i %>">{{ detail.field<%= i %> }}</a-descriptions-item>
+    <% } %>
+  </a-descriptions>
+</hmd-page>

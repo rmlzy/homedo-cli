@@ -1,37 +1,39 @@
-<% if (needQuery) { %>
-<a-form ref="queryRef" layout="inline" :model="queryForm">
-  <% for (var i = 1; i <= queryCount; i++) { %>
-  <a-form-item name="query<%= i %>">
-    <a-input v-model:value="queryForm.query<%= i %>" placeholder="请输入"></a-input>
-  </a-form-item>
+<hmd-page>
+  <% if (needQuery) { %>
+  <a-form ref="queryRef" layout="inline" :model="queryForm">
+    <% for (var i = 1; i <= queryCount; i++) { %>
+    <a-form-item name="query<%= i %>">
+      <a-input v-model:value="queryForm.query<%= i %>" placeholder="请输入"></a-input>
+    </a-form-item>
+    <% } %>
+    <a-form-item>
+      <a-button @click="reset">重置</a-button>
+      <a-button :loading="loading" type="primary" @click="search">查询</a-button>
+    </a-form-item>
+  </a-form>
   <% } %>
-  <a-form-item>
-    <a-button @click="reset">重置</a-button>
-    <a-button :loading="loading" type="primary" @click="search">查询</a-button>
-  </a-form-item>
-</a-form>
-<% } %>
 
-<% if (needAction) { %>
-<table-action>
-  <template #left>
-    <% actionNames.forEach(function (name) { %> <a-button><%= name %></a-button>
-    <% }) %>
-  </template>
-</table-action>
-<% } %>
+  <% if (needAction) { %>
+  <table-action>
+    <template #left>
+      <% actionNames.forEach(function (name) { %> <a-button><%= name %></a-button>
+      <% }) %>
+    </template>
+  </table-action>
+  <% } %>
 
-<a-table
-  row-key="id"
-  :loading="loading"
-  :data-source="records"
-  :columns="columns"
-  <% if (needScroll) { %>
-  :scroll="{ x: <%= scrollX %> }"
-  <% } %>
-  <% if (needSelection) { %>
-  :row-selection="{ selectedRowKeys: selectedKeys, onChange: onSelectionChange, fixed: 'left' }"
-  <% } %>
->
-  <template #index="{ index }">{{ index + 1 }}</template>
-</a-table>
+  <a-table
+    row-key="id"
+    :loading="loading"
+    :data-source="records"
+    :columns="columns"
+    <% if (needScroll) { %>
+    :scroll="{ x: <%= scrollX %> }"
+    <% } %>
+    <% if (needSelection) { %>
+    :row-selection="{ selectedRowKeys: selectedKeys, onChange: onSelectionChange, fixed: 'left' }"
+    <% } %>
+  >
+    <template #index="{ index }">{{ index + 1 }}</template>
+  </a-table>
+</hmd-page>

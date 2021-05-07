@@ -30,33 +30,33 @@ async function doGenerateList() {
     {
       name: "needQuery",
       type: "confirm",
-      message: "是否需要查询条件？",
+      message: "是否需要查询条件?",
       default: true,
     },
     {
       when: (ans) => ans.needQuery,
       name: "queryCount",
       type: "input",
-      message: "请输入查询条件个数？",
+      message: "请输入查询条件个数?",
       default: 9,
     },
     {
       name: "needAction",
       type: "confirm",
-      message: "是否需要操作按钮？",
+      message: "是否需要操作按钮?",
       default: true,
     },
     {
       when: (ans) => ans.needAction,
       name: "actionName",
       type: "input",
-      message: "请输入按钮名称（多个按钮用空格间隔）？",
+      message: "请输入按钮名称(多个按钮用空格间隔)?",
       default: "",
     },
     {
       name: "columnCount",
       type: "input",
-      message: "请输入表格列数？",
+      message: "请输入表格列数?",
       default: 9,
     },
     {
@@ -128,7 +128,7 @@ async function doGenerateList() {
       });
       await fs.outputFile(`${targetPath}/${outputName}`, compiledTmpl);
     }
-    logger.success("代码生成成功！");
+    logger.success("代码生成成功!");
 
     await sleep(1000);
     logger.success("开始格式化代码...");
@@ -138,7 +138,7 @@ async function doGenerateList() {
       logger.fail("格式化代码失败!");
       shell.exit(1);
     }
-    logger.success("格式化代码成功！");
+    logger.success("格式化代码成功!");
   } catch (e) {
     console.log(e);
     // pass

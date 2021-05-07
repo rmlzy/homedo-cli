@@ -18,7 +18,7 @@ async function doGenerate() {
   const { type } = await inquirer.prompt({
     name: "type",
     type: "list",
-    message: "你要生成哪种代码？",
+    message: "你要生成哪种代码?",
     choices: [
       { name: "列表页", value: "list" },
       { name: "表单页", value: "form" },

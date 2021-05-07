@@ -1,0 +1,21 @@
+import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import { useRoute } from "vue-router";
+import { fetchDetailById } from "./<%= name %>.service";
+
+export default defineComponent({
+  name: "<%= upperCaseName %>",
+  setup() {
+    const route = useRoute();
+    const state = reactive({
+      loading: false,
+      detail: {},
+    });
+    onMounted(async () => {
+      const id = route.params.id as string;
+      state.detail = await fetchDetailById(id);
+    });
+    return {
+      ...toRefs(state),
+    };
+  },
+});
