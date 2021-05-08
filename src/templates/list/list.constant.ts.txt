@@ -9,8 +9,7 @@ export const columns: ColumnProps[] = [
     dataIndex: "index",
     width: 60,
     slots: { customRender: "index" },
-  },
-  <% } %>
+  },<% } %>
   <% for (var i = 1; i <= columnCount; i++) { %>{
     title: '表格列<%= i %>',
     dataIndex: 'table<%= i %>',
