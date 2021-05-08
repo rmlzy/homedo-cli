@@ -17,7 +17,6 @@ async function doGenerateList() {
     needIndexColumn,
     needSelection,
     needScroll,
-    scrollX,
   } = await inquirer.prompt([
     {
       name: "outputPath",
@@ -77,16 +76,6 @@ async function doGenerateList() {
       message: "表格是否需要支持横向滚动?",
       default: true,
     },
-    {
-      when: (ans) => ans.needScroll,
-      name: "scrollX",
-      type: "input",
-      message: "请输入表格宽度?",
-      default: 1000,
-      validate: (value) => {
-        return value > 0;
-      },
-    },
   ]);
   const name = getNameFromPath(outputPath);
   const targetPath = path.resolve("src", outputPath);
@@ -124,7 +113,6 @@ async function doGenerateList() {
         needIndexColumn,
         needSelection,
         needScroll,
-        scrollX,
       });
       await fs.outputFile(`${targetPath}/${outputName}`, compiledTmpl);
     }

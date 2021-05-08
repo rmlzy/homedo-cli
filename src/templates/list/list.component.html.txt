@@ -28,7 +28,7 @@
     :data-source="records"
     :columns="columns"
     <% if (needScroll) { %>
-    :scroll="{ x: <%= scrollX %> }"
+    :scroll="{ x: true }"
     <% } %>
     <% if (needSelection) { %>
     :row-selection="{ selectedRowKeys: selectedKeys, onChange: onSelectionChange, fixed: 'left' }"
