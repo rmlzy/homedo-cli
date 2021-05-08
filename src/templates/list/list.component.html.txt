@@ -14,12 +14,12 @@
   <% } %>
 
   <% if (needAction) { %>
-  <table-action>
+  <hmd-table-action>
     <template #left>
       <% actionNames.forEach(function (name) { %> <a-button><%= name %></a-button>
       <% }) %>
     </template>
-  </table-action>
+  </hmd-table-action>
   <% } %>
 
   <a-table

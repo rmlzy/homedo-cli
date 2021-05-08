@@ -4,7 +4,7 @@ import { fetchDetailById } from "./<%= name %>.service";
 
 export default defineComponent({
   name: "<%= upperCaseName %>",
-  setup() {
+  setup(props, { attrs, slots, emit }) {
     const route = useRoute();
     const state = reactive({
       loading: false,
