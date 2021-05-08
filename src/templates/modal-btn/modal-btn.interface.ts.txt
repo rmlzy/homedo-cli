@@ -1,0 +1,7 @@
+export interface IFormData {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: string; <% } %>
+}
+
+export interface IDetail {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: string; <% } %>
+}

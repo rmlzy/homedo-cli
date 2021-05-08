@@ -3,7 +3,7 @@ import { defaultQueryForm, defaultState } from './<%= name %>.constant';
 import { fetchTableData } from './<%= name %>.service';
 
 export default defineComponent({
-  name: '<%= upperCaseName %>',
+  name: "<%= upperCaseName %>",
   setup() {
     const queryRef = ref();
     const queryForm = reactive(defaultQueryForm);

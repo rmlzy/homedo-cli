@@ -1,0 +1,27 @@
+<div class="<%= name %>">
+  <empty-link v-if="isEdit" @click="showEditModal">{{ editButtonText }}</empty-link>
+  <a-button v-else type="primary" @click="showCreateModal">{{ createButtonText }}</a-button>
+
+  <a-modal
+    v-model:visible="visible"
+    :confirm-loading="submitting"
+    <% if (needModalWidth) { %> :width="<%= modalWidth %>" <% } %>
+    :keyboard="<%= keyboard %>"
+    :mask-closable="<%= maskClosable %>"
+    <% if (needOkText) { %> okText="<%= okText %>" <% } %>
+    <% if (needCancelText) { %> cancelText="<%= cancelText %>" <% } %>
+    @ok="onOk"
+    @cancel="onCancel"
+  >
+    <template #title>{{ isEdit ? "<%= editButtonText %>" : "<%= createButtonText %>" }}<%= title %></template>
+    <a-skeleton :loading="mounting" active>
+      <a-form ref="formRef" layout="vertical" :model="formData" :rules="formRules">
+        <% for (var i = 1; i <= fieldCount; i++) { %>
+        <a-form-item label="字段<%= i %>" name="field<%= i %>">
+          <a-input v-model:value="formData.field<%= i %>" placeholder="请输入"></a-input>
+        </a-form-item>
+        <% } %>
+      </a-form>
+    </a-skeleton>
+  </a-modal>
+</div>

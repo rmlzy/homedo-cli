@@ -1,0 +1,7 @@
+export const defaultFormData = {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: "", <% } %>
+};
+
+export const formRules = {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: [{ required: true, message: "必填项" }], <% } %>
+};

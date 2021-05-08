@@ -39,7 +39,7 @@ export default defineComponent({
       try {
         await formRef.value.validate();
         <% if (needEdit) { %>
-        if (isEdit) {
+        if (isEdit.value) {
           await doEdit(id, toRaw(formData));
         } else {
           await doCreate(toRaw(formData));
@@ -55,7 +55,7 @@ export default defineComponent({
     };
     <% if (needEdit) { %>
     onMounted(async () => {
-      if (isEdit) {
+      if (isEdit.value) {
         const detail = await fetchDetail(id);
         // detail data to form data
       }

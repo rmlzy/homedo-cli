@@ -1,0 +1,78 @@
+import { computed, defineComponent, reactive, ref, toRaw, toRefs, UnwrapRef } from "vue";
+import { IFormData } from "./<%= name %>.interface";
+import { defaultFormData, formRules } from "./<%= name %>.constant";
+import { doCreate, doEdit, fetchDetail } from "./<%= name %>.service";
+
+export default defineComponent({
+  name: "<%= upperCaseName %>",
+  props: {
+    id: {
+      type: String,
+      default: "",
+    },
+    createButtonText: {
+      type: String,
+      default: "<%= createButtonText %>",
+    },
+    editButtonText: {
+      type: String,
+      default: "<%= editButtonText %>",
+    },
+  },
+  emits: {
+    ok: null,
+  },
+  setup(props, { attrs, slots, emit }) {
+    const formRef = ref();
+    const formData: UnwrapRef<IFormData> = reactive(defaultFormData);
+    const isEdit = computed(() => !!props.id);
+    const state = reactive({
+      mounting: false,
+      submitting: false,
+      visible: false,
+    });
+    const showCreateModal = async () => {
+      state.visible = true;
+    };
+    const showEditModal = async () => {
+      state.visible = true;
+      if (isEdit.value) {
+        state.mounting = true;
+        const detail = await fetchDetail(props.id);
+        // detail data to form data
+        state.mounting = false;
+      }
+    };
+    const onOk = async () => {
+      state.submitting = true;
+      try {
+        await formRef.value.validate();
+        if (isEdit.value) {
+          await doEdit(props.id, toRaw(formData));
+        } else {
+          await doCreate(toRaw(formData));
+        }
+        emit("ok", null);
+      } catch (e) {
+        // pass
+      } finally {
+        state.submitting = false;
+      }
+    };
+    const onCancel = () => {
+      formRef.value.resetFields();
+      state.visible = false;
+    };
+    return {
+      ...toRefs(state),
+      isEdit,
+      formRef,
+      formData,
+      formRules,
+      showCreateModal,
+      showEditModal,
+      onOk,
+      onCancel,
+    };
+  },
+});
