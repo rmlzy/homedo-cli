@@ -33,8 +33,8 @@ async function doGenerateModalBtn() {
     {
       name: "createButtonText",
       type: "input",
-      message: "请输入新增状态时按钮的名称:",
-      default: "新增",
+      message: "请输入新建状态时按钮的名称:",
+      default: "新建",
     },
     {
       name: "editButtonText",
