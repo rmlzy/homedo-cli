@@ -1,7 +1,7 @@
 {
   "name": "homedo-cli",
   "description": "A command-line interface tool built for homedo.com",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "rmlzy <rmlzy@outlook.com> (https://poppython.com)",
   "bin": {
     "homedo": "cli.js"
