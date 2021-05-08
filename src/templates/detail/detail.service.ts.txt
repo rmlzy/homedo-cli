@@ -4,7 +4,7 @@ import request from "@/utils/request";
 import { IResponse } from "@/core/interface";
 import { IDetail } from "./<%= name %>.interface";
 
-export const fetchDetailById = async (id: string): Promise<IDetail> => {
+export const fetchDetail = async (id: string) => {
   const result = {};
   try {
     const r: AxiosResponse<IResponse<IDetail>> = await request({

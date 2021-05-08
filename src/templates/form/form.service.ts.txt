@@ -7,7 +7,7 @@ import { IResponse } from "@/core/interface";
 <% } %>
 
 <% if (needEdit) { %>
-export const fetchDetail = async (id: string): Promise<IDetail> => {
+export const fetchDetail = async (id: string) => {
   const result = {};
   try {
     const r: AxiosResponse<IResponse<IDetail>> = await request({
