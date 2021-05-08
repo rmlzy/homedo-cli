@@ -6,8 +6,6 @@ const pkg = require("./package");
 const doNew = require("./src/doNew");
 const doGenerate = require("./src/doGenerate");
 
-console.log(process.argv);
-
 const cli = cac("homedo");
 
 cli.command("new <folder>", "创建新项目").action(doNew).example("homedo new my-new-project");

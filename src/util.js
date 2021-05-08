@@ -34,7 +34,11 @@ module.exports.logger = {
 };
 
 module.exports.readTemplate = async function (name) {
-  const rootPath = await getInstalledPath("homedo-cli", {});
+  let rootPath = "";
+  // 如果使用全局安装的 homedo 命令, 需要指定安装位置
+  if (process.argv[1].startsWith("/usr/local/bin")) {
+    rootPath = await getInstalledPath("homedo-cli", {});
+  }
   const tmplPath = path.resolve(rootPath, `src/templates/${name}`);
   return fs.readFile(tmplPath, "utf8");
 };
