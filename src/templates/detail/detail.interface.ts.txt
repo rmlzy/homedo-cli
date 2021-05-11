@@ -1,4 +1,4 @@
 export interface IDetail {
   id?: string;
-  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: string; <% } %>
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>?: string; <% } %>
 }
