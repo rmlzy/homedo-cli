@@ -8,6 +8,7 @@ const doGenerateList = require("./doGenerateList");
 const doGenerateForm = require("./doGenerateForm");
 const doGenerateDetail = require("./doGenerateDetail");
 const doGenerateModalBtn = require("./doGenerateModalBtn");
+const doGenerateService = require("./doGenerateService");
 
 async function doGenerate() {
   const srcPath = path.resolve("src");
@@ -23,10 +24,11 @@ async function doGenerate() {
     message: "你要生成哪种代码?",
     choices: [
       { name: "空白模板", value: "blank" },
+      { name: "河姆渡通用Service", value: "service" },
       { name: "河姆渡通用列表页", value: "list" },
-      { name: "河姆渡通用表单页", value: "form" },
-      { name: "河姆渡通用详情页", value: "detail" },
-      { name: "带表单模态框的按钮", value: "modal-btn" },
+      // { name: "河姆渡通用表单页", value: "form" },
+      // { name: "河姆渡通用详情页", value: "detail" },
+      // { name: "带表单模态框的按钮", value: "modal-btn" },
     ],
   });
   if (type === "blank") {
@@ -43,6 +45,9 @@ async function doGenerate() {
   }
   if (type === "modal-btn") {
     await doGenerateModalBtn();
+  }
+  if (type === "service") {
+    await doGenerateService();
   }
 }
 

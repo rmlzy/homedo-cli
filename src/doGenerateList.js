@@ -9,14 +9,18 @@ const { logger, readTemplate, isEmptyDir, getNameFromPath } = require("./util");
 async function doGenerateList() {
   const {
     outputPath,
+    serviceName,
     needQuery,
     queryCount,
     needAction,
     actionName,
     columnCount,
-    needIndexColumn,
     needSelection,
+    needIndexColumn,
     needScroll,
+    needTableAction,
+    needTableEdit,
+    needTableDelete,
   } = await inquirer.prompt([
     {
       name: "outputPath",
@@ -27,13 +31,14 @@ async function doGenerateList() {
       },
     },
     {
-      name: "needQuery",
-      type: "confirm",
-      message: "是否需要查询条件?",
-      default: true,
+      name: "serviceName",
+      type: "input",
+      message: "请输入Service名称, 例如 user",
+      validate: (value) => {
+        return !!value;
+      },
     },
     {
-      when: (ans) => ans.needQuery,
       name: "queryCount",
       type: "input",
       message: "请输入查询条件个数?",
@@ -59,21 +64,41 @@ async function doGenerateList() {
       default: 9,
     },
     {
-      name: "needIndexColumn",
-      type: "confirm",
-      message: "表格是否需要索引列?",
-      default: true,
-    },
-    {
       name: "needSelection",
       type: "confirm",
       message: "表格是否需要支持多选?",
       default: true,
     },
     {
+      name: "needIndexColumn",
+      type: "confirm",
+      message: `表格是否需要"索引"列?`,
+      default: true,
+    },
+    {
       name: "needScroll",
       type: "confirm",
       message: "表格是否需要支持横向滚动?",
+      default: true,
+    },
+    {
+      name: "needTableAction",
+      type: "confirm",
+      message: `表格是否需要"操作"列?`,
+      default: true,
+    },
+    {
+      when: (ans) => ans.needTableAction,
+      name: "needTableEdit",
+      type: "confirm",
+      message: "表格是否需要编辑按钮?",
+      default: true,
+    },
+    {
+      when: (ans) => ans.needTableAction,
+      name: "needTableDelete",
+      type: "confirm",
+      message: "表格是否需要删除按钮?",
       default: true,
     },
   ]);
@@ -87,32 +112,33 @@ async function doGenerateList() {
 
   logger.success("开始生成代码...");
   try {
-    const actionNames = actionName.split(" ").map((item) => item.trim());
-    const upperCaseName = upperCase(name);
+    const actionNames = (actionName || "").split(" ").map((item) => item.trim());
     const templateNames = [
       "index.vue",
-      "list.component.html",
-      "list.component.less",
-      "list.component.ts",
-      "list.constant.ts",
-      "list.interface.ts",
-      "list.service.ts",
+      "template.component.html",
+      "template.component.less",
+      "template.component.ts",
+      "template.constant.ts",
     ];
     for (let i = 0; i < templateNames.length; i++) {
       const tmplName = templateNames[i];
-      const outputName = tmplName.replace("list", name);
+      const outputName = tmplName.replace("template", name);
       const originTmpl = await readTemplate(`list/${tmplName}.txt`);
       const compiledTmpl = ejs.render(originTmpl, {
         name,
-        upperCaseName,
-        needQuery,
+        upperCaseName: upperCase(name),
+        serviceName,
+        upperCaseServiceName: upperCase(serviceName),
         queryCount: +queryCount,
         needAction,
         actionNames,
         columnCount,
-        needIndexColumn,
         needSelection,
+        needIndexColumn,
         needScroll,
+        needTableAction,
+        needTableEdit,
+        needTableDelete,
       });
       await fs.outputFile(`${targetPath}/${outputName}`, compiledTmpl);
     }

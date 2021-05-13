@@ -1,0 +1,21 @@
+import { ColumnProps } from "ant-design-vue/lib/table/interface";
+
+export const columns: ColumnProps[] = [
+  <% if (needIndexColumn) { %> {
+    title: "#",
+    dataIndex: "index",
+    width: 60,
+    slots: { customRender: "index" },
+  }, <% } %>
+  <% for (var i = 1; i <= columnCount; i++) { %> {
+    title: "表格列<%= i %>",
+    width: 100,
+    dataIndex: "table<%= i %>",
+    key: "table<%= i %>",
+  }, <% } %>
+  <% if (needTableAction) { %> {
+    title: "操作",
+    width: 160,
+    slots: { customRender: "action" },
+  }, <% } %>
+];

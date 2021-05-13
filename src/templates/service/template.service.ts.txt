@@ -1,0 +1,60 @@
+import request from "@/utils/request";
+import { usePagination, useRequest } from "@/utils/useRequest";
+import {
+  <%= upperCaseName %>PageReq,
+  <%= upperCaseName %>PageResp,
+  <%= upperCaseName %>DetailReq,
+  <%= upperCaseName %>DetailResp,
+  <%= upperCaseName %>Req,
+  <%= upperCaseName %>DeleteReq,
+} from "./brand.interface";
+
+export class <%= upperCaseName %>Service {
+  static use<%= upperCaseName %>PageApi() {
+    const api = (params: <%= upperCaseName %>PageReq) =>
+      request({
+        method: "GET",
+        url: "/brand/page",
+        params,
+      });
+    return usePagination<<%= upperCaseName %>PageResp>(api);
+  }
+
+  static use<%= upperCaseName %>DetailApi() {
+    const api = (data: <%= upperCaseName %>DetailReq) =>
+      request({
+        method: "GET",
+        url: `/brand/${data.id}`,
+      });
+    return useRequest<<%= upperCaseName %>DetailResp>(api);
+  }
+
+  static use<%= upperCaseName %>CreateApi() {
+    const api = (data: <%= upperCaseName %>Req) =>
+      request({
+        method: "POST",
+        url: "/brand",
+        data,
+      });
+    return useRequest<void>(api);
+  }
+
+  static use<%= upperCaseName %>EditApi() {
+    const api = (id: string, data: <%= upperCaseName %>Req) =>
+      request({
+        method: "PUT",
+        url: `/brand/${id}`,
+        data,
+      });
+    return useRequest<void>(api);
+  }
+
+  static use<%= upperCaseName %>DeleteApi() {
+    const api = (id: <%= upperCaseName %>DeleteReq) =>
+      request({
+        method: "DELETE",
+        url: `/brand/${id}`,
+      });
+    return useRequest<void>(api);
+  }
+}

@@ -1,0 +1,60 @@
+import { defineComponent, reactive, ref, onMounted } from "vue";
+import { useForm } from "@ant-design-vue/use";
+import { columns } from "./<%= name %>.constant";
+import { <%= upperCaseServiceName %>PageReq } from "../<%= serviceName %>.interface";
+import { <%= upperCaseServiceName %>Service } from "../<%= serviceName %>.service";
+
+export default defineComponent({
+  name: "<%= upperCaseName %>",
+  setup() {
+    const pageReq = new <%= upperCaseServiceName %>PageReq({
+      query1: ""
+    });
+
+    const pageReqRef = reactive(pageReq);
+
+    const { resetFields } = useForm(pageReqRef, reactive({}));
+
+    const { data: dataSource, loading, run, refresh, pagination } = <%= upperCaseServiceName %>Service.use<%= upperCaseServiceName %>PageApi();
+
+    const search = async () => {
+      pageReq.merge({ query1: pageReqRef.query1, current: 1 });
+      await run(pageReq);
+    };
+
+    const reset = async () => {
+      resetFields();
+      await search();
+    };
+
+    const onTableChange = async (pagination) => {
+      pageReq.merge({ current: pagination.current, size: pagination.pageSize });
+      await run(pageReq);
+    };
+
+    <% if (needSelection) { %>
+    const selectedKeys = ref<string[]>([]);
+
+    const onSelectionChange = (keys: string[]) => {
+      selectedKeys.value = keys;
+    };
+    <% } %>
+    onMounted(async () => {
+      await search();
+    });
+
+    return {
+      pageReqRef,
+      loading,
+      dataSource,
+      columns,
+      pagination,
+      refresh,
+      reset,
+      search,
+      onTableChange,
+      <% if (needSelection) { %> selectedKeys,
+      onSelectionChange, <% } %>
+    };
+  },
+});

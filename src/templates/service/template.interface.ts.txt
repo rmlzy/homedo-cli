@@ -1,0 +1,61 @@
+import { BasePaginationReq, BaseReq, UpdaterResp } from "@/core/interface";
+
+class Base<%= upperCaseName %> {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: string = ""; <% } %>
+}
+
+class Base<%= upperCaseName %>Updater extends UpdaterResp { }
+
+/**
+ * 分页接口入参
+ */
+export class <%= upperCaseName %>PageReq extends BasePaginationReq {
+  <% for (var i = 1; i <= fieldCount; i++) { %> field<%= i %>: string = ""; <% } %>
+
+  constructor(req) {
+    super();
+    this.merge(req);
+  }
+}
+
+/**
+ * 分页接口出参
+ */
+export class <%= upperCaseName %>PageResp extends Base<%= upperCaseName %>Updater {
+  id: string = "";
+}
+
+/**
+ * 新增, 编辑接口入参
+ */
+export class <%= upperCaseName %>Req extends BaseReq {
+  constructor(req) {
+    super();
+    this.merge(req);
+  }
+}
+
+/**
+ * 删除接口入参
+ */
+export class <%= upperCaseName %>DeleteReq {
+  id: string = "";
+}
+
+/**
+ * 详情接口入参
+ */
+export class <%= upperCaseName %>DetailReq {
+  id: string = "";
+
+  constructor(id) {
+    this.id = id;
+  }
+}
+
+/**
+ * 详情接口出参
+ */
+export class <%= upperCaseName %>DetailResp extends Base<%= upperCaseName %>Updater {
+  id: number = 0;
+}
